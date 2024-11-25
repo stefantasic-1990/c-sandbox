@@ -12,14 +12,14 @@ int main(int argc, char** argv) {
         // read-in next character from the standard input stream
         int c;
         // c = getchar();
-        c = read(STDIN_FILENO, &c, 1);
+        read(STDIN_FILENO, &c, 1);
 
         // write(STDOUT_FILENO, "\x0a", sizeof("\x0a"));
         // write(STDOUT_FILENO, &c, sizeof(char));
 
         // if new line character reached then null terminate line string and print to terminal
         // else append character to line
-        if (c == EOF || c == 10) {
+        if (c == EOF || c == 13) {
             line[linePosition] = '\0';
             write(STDOUT_FILENO, "\x0a", sizeof("\x0a"));
             write(STDOUT_FILENO, "c", 1);

@@ -1,6 +1,6 @@
 /*
-    A little program to print the integer values of the bytes received through terminal input.
-    When you run this program, the terminal will buffer the input until you press enter.
+    A little program to print the integer values of the bytes received through terminal input in canonical mode.
+    When you run this program, the line discipline will buffer the input until you press enter.
     This program will then print out the integer values of each byte received in order including the newline.
 */
 

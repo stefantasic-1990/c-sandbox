@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
         c = getchar();
 
         // if new line character reached then null terminate line string and print to terminal
-        // else append character to line
+        // else append character to line buffer
         if (c == 10) {
             if (linePosition != 0) {
                 line[linePosition] = '\0';
@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
             linePosition++;
         }
 
-        // allocate more memory for the line if reqiired
+        // allocate more memory for the line buffer if reqiired
         if (linePosition >= lineMaxSize) {
         lineMaxSize += 1024;
         line = realloc(line, lineMaxSize);

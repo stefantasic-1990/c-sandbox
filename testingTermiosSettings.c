@@ -19,6 +19,8 @@ int main(int argc, char** argv) {
     struct termios initial_terminal_settings;
     struct termios modified_terminal_settings;
     
+    // is_flag_enabled();
+    
     if (isatty(STDIN_FILENO)) { 
         tcgetattr(STDIN_FILENO, &initial_terminal_settings);
 
@@ -28,7 +30,7 @@ int main(int argc, char** argv) {
         modified_terminal_settings.c_oflag &= ~0;
         modified_terminal_settings.c_lflag &= ~0;
 
-        modified_terminal_settings.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
+        // modified_terminal_settings.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
         // modified_terminal_settings.c_oflag &= ~(OPOST);
         // modified_terminal_settings.c_lflag &= ~(ECHO);
         // modified_terminal_settings.c_cflag |= (CS8);

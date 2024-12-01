@@ -3,6 +3,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void is_flag_enabled(char* flag_name, unsigned int flag, unsigned int flag_group) {
+    if (flag & flag_group) {
+        printf("%s is enabled\n", flag_name);
+    } else {
+        printf("%s is disabled\n", flag_name);
+    }
+}
+
 int main(int argc, char** argv) {
     int lineMaxSize = 1024;
     int linePosition = 0;
@@ -15,10 +23,15 @@ int main(int argc, char** argv) {
         tcgetattr(STDIN_FILENO, &initial_terminal_settings);
 
         modified_terminal_settings = initial_terminal_settings;
-        // modified_terminal_settings.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
+
+        modified_terminal_settings.c_iflag &= ~0;
+        modified_terminal_settings.c_oflag &= ~0;
+        modified_terminal_settings.c_lflag &= ~0;
+
+        modified_terminal_settings.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
         // modified_terminal_settings.c_oflag &= ~(OPOST);
-        // modified_terminal_settings.c_cflag |= (CS8);
         // modified_terminal_settings.c_lflag &= ~(ECHO);
+        // modified_terminal_settings.c_cflag |= (CS8);
         // modified_terminal_settings.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
         // modified_terminal_settings.c_cc[VMIN] = 1; 
         // modified_terminal_settings.c_cc[VTIME] = 0;

@@ -3,42 +3,22 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void is_flag_enabled(char* flag_name, unsigned int flag, unsigned int flag_group) {
-    if (flag & flag_group) {
-        printf("%s is enabled\n", flag_name);
-    } else {
-        printf("%s is disabled\n", flag_name);
-    }
-}
-
 int main(int argc, char** argv) {
     int lineMaxSize = 1024;
     int linePosition = 0;
     char* line = malloc(sizeof(char) * lineMaxSize);
 
-    struct termios initial_terminal_settings;
-    struct termios modified_terminal_settings;
-    
-    // is_flag_enabled();
+    struct termios initial_settings;
+    struct termios modified_settings;
     
     if (isatty(STDIN_FILENO)) { 
-        tcgetattr(STDIN_FILENO, &initial_terminal_settings);
+        tcgetattr(STDIN_FILENO, &initial_settings);
 
-        modified_terminal_settings = initial_terminal_settings;
+        modified_settings = initial_settings;
 
-        modified_terminal_settings.c_iflag &= ~0;
-        modified_terminal_settings.c_oflag &= ~0;
-        modified_terminal_settings.c_lflag &= ~0;
-
-        // modified_terminal_settings.c_iflag &= ~(BRKINT | ICRNL | INPCK | ISTRIP | IXON);
-        // modified_terminal_settings.c_oflag &= ~(OPOST);
-        // modified_terminal_settings.c_lflag &= ~(ECHO);
-        // modified_terminal_settings.c_cflag |= (CS8);
-        // modified_terminal_settings.c_lflag &= ~(ECHO | ICANON | IEXTEN | ISIG);
-        // modified_terminal_settings.c_cc[VMIN] = 1; 
-        // modified_terminal_settings.c_cc[VTIME] = 0;
+        modified_settings.c_lflag &= ~(ICANON | ECHO);
         
-        tcsetattr(STDIN_FILENO,TCSAFLUSH,&modified_terminal_settings);
+        tcsetattr(STDIN_FILENO,TCSAFLUSH,&modified_settings);
     } else {
         return -1;
     }
@@ -57,7 +37,7 @@ int main(int argc, char** argv) {
                 write(STDOUT_FILENO, "\x0a", sizeof("\x0a"));
                 linePosition = 0;
             } else {
-                tcsetattr(STDIN_FILENO,TCSAFLUSH,&initial_terminal_settings);
+                tcsetattr(STDIN_FILENO,TCSAFLUSH,&initial_settings);
                 exit(0);
             }
         } else {

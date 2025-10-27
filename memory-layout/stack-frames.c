@@ -32,7 +32,7 @@ void foo()
 
 int main(void)
 {
-    printf("Executing main()...");
+    printf("\nExecuting main()...");
     print_rsp_rbp();
 
     foo();

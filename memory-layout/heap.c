@@ -28,7 +28,7 @@ int main(void)
 {
     print_break();
     void *a = allocate(1);
-    void *b = allocate(30);
+    void *b = allocate(25);
     void *c = allocate(24);
     void *d = allocate(8);
     release(a);
